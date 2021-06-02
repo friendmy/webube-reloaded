@@ -1,0 +1,21 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "The best way to watch videos.",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/friendmy/webube-reloaded.git"
+  },
+  "author": "friendmy<friendmytrue@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/friendmy/webube-reloaded/issues"
+  },
+  "homepage": "https://github.com/friendmy/webube-reloaded#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
