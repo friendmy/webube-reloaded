@@ -28,15 +28,20 @@ const videos = [
 export const trending = (req, res) => {
     return res.render("home", { pageTitle: "Home", videos });
 };
-export const see = (req, res) => {
+export const watch = (req, res) => {
     const { id } = req.params;
     const video = videos[id - 1];
-    return res.render("watch", { pageTitle: `Watch ${video.title}` });
+    return res.render("watch", { pageTitle: `Watch ${video.title}`, video });
 };
-export const edit = (req, res) => res.send("Edit Video", { pageTitle: "Edit" });
+export const getEdit = (req, res) => {
+    const { id } = req.params;
+    const video = videos[id - 1];
+    return res.render("edit", { pageTitle: `Editing ${video.title}`, video });
+};
+export const postEdit = (req, res) => {
+    console.log(res);
+};
 export const deleteVideo = (req, res) => {
     console.log(req.params);
     return res.send("Delete Video");
 };
-export const search = (req, res) => res.send("Search Video");
-export const upload = (req, res) => res.send("Upload Video");
