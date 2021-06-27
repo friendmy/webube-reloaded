@@ -16,10 +16,10 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
-        secret: "Hello!",
-        resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({ mongoUrl: "mongodb://127.0.0.1:27017/wetube" }),
+        secret: process.env.COOKIE_SECRET, // 해당 문자로 세션을 암호화하여 저장
+        resave: false, // 세션을 언제나 저장할지 여부
+        saveUninitialized: false, // 세션이 저장되기전 unitialized 상태로 미지 저장 여부
+        store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     })
 );
 
