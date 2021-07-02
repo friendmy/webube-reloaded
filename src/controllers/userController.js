@@ -1,7 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
-import { render } from "pug";
+import Video from "../models/Video";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -198,18 +198,17 @@ export const finishGithubLogin = async (req, res) => {
     }
 };
 export const getEdit = (req, res) => {
-    console.log(req.session.user.socialOnly);
     return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 export const postEdit = async (req, res) => {
     const {
         session: {
-            user: { _id, username: beforeUsername, email: beforeEmail },
+            user: { _id, username: beforeUsername, email: beforeEmail, avatarUrl },
         },
         body: { name, email, username, location },
         file,
     } = req;
-    console.log(file);
+    //console.log(file);
     const pageTitle = "Edit Profile";
 
     const searchParam = [];
@@ -226,7 +225,17 @@ export const postEdit = async (req, res) => {
             });
         }
     }
-    const updatedUser = await User.findByIdAndUpdate(_id, { name, email, username, location }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(
+        _id,
+        {
+            avatarUrl: file ? file.path : avatarUrl,
+            name,
+            email,
+            username,
+            location,
+        },
+        { new: true }
+    );
     req.session.user = updatedUser;
 
     return res.redirect("/users/edit");
@@ -271,4 +280,12 @@ export const postChangePassword = async (req, res) => {
     return res.redirect("/users/logout");
 };
 
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
+    if (!user) {
+        return res.status(404).render("404", { pageTitle: "User not found." });
+    }
+    return res.render("users/profile", { pageTitle: user.name, user });
+};

@@ -24,17 +24,10 @@ app.use(
 );
 
 app.use(localsMiddleware);
+app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
-
-const home = (req, res) => {
-    console.log("I will respond");
-    return res.send("hello");
-};
-
-const login = (req, res) => {
-    return res.send("login");
-};
 
 export default app;
