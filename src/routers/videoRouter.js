@@ -6,7 +6,7 @@ const videoRouter = express.Router();
 
 const handleWatch = (req, res) => res.send("Watch Video");
 const handelEdit = (req, res) => res.send("Edit Video");
-
+console.log("users");
 videoRouter.get("/:id([0-9a-f]{24})", watch);
 videoRouter.route("/:id([0-9a-f]{24})/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
 videoRouter.route("/:id([0-9a-f]{24})/delete").all(protectorMiddleware).get(deleteVideo);
