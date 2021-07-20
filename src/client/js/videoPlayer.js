@@ -12,6 +12,8 @@ const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
+console.log(videoContainer.dataset);
+
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
@@ -54,7 +56,7 @@ const handleVolumeChange = (e) => {
 
 const formatTime = (seconds) => {
     //new Date(seconds * 1000).toISOString().substr(11, 8);
-    new Date(seconds * 1000).toISOString().substr(14, 5);
+    return new Date(seconds * 1000).toISOString().substr(14, 5);
 };
 
 const handleLoadedMetadata = (e) => {
@@ -93,6 +95,8 @@ const hideControls = () => {
 };
 
 const handleMouseMove = () => {
+    //console.log("handleMouseMove");
+    //console.log(controlsTimeout);
     if (controlsTimeout) {
         clearTimeout(controlsTimeout);
         controlsTimeout = null;
@@ -106,15 +110,22 @@ const handleMouseMove = () => {
 };
 
 const handleMouseLeave = () => {
+    //console.log("handleMouseLeave");
     controlsTimeout = setTimeout(hideControls, 3000);
 };
 
 const handleVideoClick = (e) => {
+    console.log("handleVideoClick");
     if (video.paused) {
         video.play();
     } else {
         video.pause();
     }
+};
+
+const handleEnded = () => {
+    const { id } = videoContainer.dataset;
+    fetch(`/api/videos/${id}/view`, { method: "POST" });
 };
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -123,8 +134,10 @@ volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 //video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+video.addEventListener("ended", handleEnded);
+
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimeLineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
-video.addEventListener("click", handleVideoClick);
+//video.addEventListener("click", handleVideoClick);
