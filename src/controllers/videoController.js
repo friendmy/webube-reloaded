@@ -36,6 +36,7 @@ export const getEdit = async (req, res) => {
     }
 
     if (String(video.owner) !== String(_id)) {
+        req.flash("error", "Not authorized");
         return res.status(403).redirect("/");
     }
     return res.render("edit", { pageTitle: `Editing ${video.title}`, video });
@@ -51,6 +52,7 @@ export const postEdit = async (req, res) => {
         return res.status(404).render("404", { pageTitle: "Vidoe not found." });
     }
     if (String(video.owner) !== String(_id)) {
+        req.flash("error", "You ar not the owner of the video");
         return res.status(403).redirect("/");
     }
     await Video.findByIdAndUpdate(id, {
@@ -70,13 +72,18 @@ export const postUpload = async (req, res) => {
     const {
         user: { _id: owner },
     } = req.session;
-    const { path: fileUrl } = req.file;
+    console.log(req.session.user);
+    const { video, thumb } = req.files;
+    // console.log(thumb);
+    // console.log(thumb[0].path);
+    // console.log(thumb[0].destination + thumb[0].filename);
     const { title, description, hashtags } = req.body;
     try {
         const newVideo = await Video.create({
             title,
             description,
-            fileUrl,
+            fileUrl: video[0].path.replace(/\\/g, "/"),
+            thumbUrl: thumb[0].path.replace(/\\/g, "/"),
             owner,
             hashtags: Video.formatHashtags(hashtags),
         });

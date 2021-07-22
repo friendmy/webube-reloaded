@@ -32,16 +32,16 @@ block content
         //-     div
         //-         button#fullScreen Enter Full Screen
 
-    //- div
-    //-     p=video.description
-    //-     small=video.createdAt
-    //- div 
-    //-     small Upload by 
-    //-         a(href=`/users/${video.owner._id}`)=video.owner.name
-    //- if String(video.owner._id) === String(loggedInUser._id)
-    //-     a(href=`${video.id}/edit`) Edit Video &rarr; 
-    //-     br
-    //-     a(href=`${video.id}/delete`) Delete Video &rarr; 
+    div
+        p=video.description
+        small=video.createdAt
+    div 
+        small Upload by 
+            a(href=`/users/${video.owner._id}`)=video.owner.name
+    if String(video.owner._id) === String(loggedInUser._id)
+        a(href=`${video.id}/edit`) Edit Video &rarr; 
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr; 
 
 
 block scripts
