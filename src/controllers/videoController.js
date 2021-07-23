@@ -46,11 +46,14 @@ export const postEdit = async (req, res) => {
         user: { _id },
     } = req.session;
     const { id } = req.params;
-    const video = await Video.exists({ _id: id });
+    const video = await Video.findById({ _id: id });
+
     const { title, description, hashtags } = req.body;
     if (!video) {
         return res.status(404).render("404", { pageTitle: "Vidoe not found." });
     }
+    //console.log(video);
+    //console.log(video.owner);
     if (String(video.owner) !== String(_id)) {
         req.flash("error", "You ar not the owner of the video");
         return res.status(403).redirect("/");
@@ -60,7 +63,7 @@ export const postEdit = async (req, res) => {
         description,
         hashtags: Video.formatHashtags(hashtags),
     });
-
+    req.flash("success", "Change saved.");
     return res.redirect(`/videos/${id}`);
 };
 
@@ -72,7 +75,7 @@ export const postUpload = async (req, res) => {
     const {
         user: { _id: owner },
     } = req.session;
-    console.log(req.session.user);
+    //console.log(req.session.user);
     const { video, thumb } = req.files;
     // console.log(thumb);
     // console.log(thumb[0].path);

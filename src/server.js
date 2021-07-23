@@ -24,7 +24,7 @@ app.use(
         store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     })
 );
-app.use(flash);
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"), express.static("node_modules/@ffmpeg/core/dist"));
