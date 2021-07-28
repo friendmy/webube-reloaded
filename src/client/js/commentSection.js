@@ -45,7 +45,7 @@ const handleSubmit = async (event) => {
 
 const deleteComment = (event) => {
     event.preventDefault();
-    console.log(event.currentTarget);
+    //console.log(event.currentTarget);
 };
 
 if (form) {

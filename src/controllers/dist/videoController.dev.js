@@ -63,10 +63,9 @@ var watch = function watch(req, res) {
 
         case 3:
           video = _context2.sent;
-          console.log(video);
 
           if (video) {
-            _context2.next = 7;
+            _context2.next = 6;
             break;
           }
 
@@ -74,13 +73,13 @@ var watch = function watch(req, res) {
             pageTitle: "Vidoe not found."
           }));
 
-        case 7:
+        case 6:
           return _context2.abrupt("return", res.render("watch", {
             pageTitle: video.title,
             video: video
           }));
 
-        case 8:
+        case 7:
         case "end":
           return _context2.stop();
       }
@@ -244,13 +243,12 @@ var postUpload = function postUpload(req, res) {
         case 15:
           _context5.prev = 15;
           _context5.t0 = _context5["catch"](3);
-          console.log(_context5.t0);
           return _context5.abrupt("return", res.status(400).render("upload", {
             pageTitle: "Upload Video",
             errorMessage: _context5.t0._message
           }));
 
-        case 19:
+        case 18:
         case "end":
           return _context5.stop();
       }

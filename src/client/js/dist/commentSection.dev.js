@@ -74,8 +74,7 @@ var handleSubmit = function handleSubmit(event) {
 };
 
 var deleteComment = function deleteComment(event) {
-  event.preventDefault();
-  console.log(event.currentTarget);
+  event.preventDefault(); //console.log(event.currentTarget);
 };
 
 if (form) {

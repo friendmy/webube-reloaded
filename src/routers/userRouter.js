@@ -14,7 +14,7 @@ import {
 import { avatarIpload, protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
 
 const userRouter = express.Router();
-console.log("users");
+//console.log("users");
 userRouter.get("/logout", protectorMiddleware, logout);
 userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(avatarIpload.single("avatar"), postEdit);
 userRouter.route("/change-password").all(protectorMiddleware).get(getChangePassword).post(postChangePassword);
