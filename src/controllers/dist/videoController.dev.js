@@ -3,11 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.registerView = exports.search = exports.deleteVideo = exports.postUpload = exports.getUpload = exports.postEdit = exports.getEdit = exports.watch = exports.home = void 0;
+exports.createComment = exports.registerView = exports.search = exports.deleteVideo = exports.postUpload = exports.getUpload = exports.postEdit = exports.getEdit = exports.watch = exports.home = void 0;
 
 var _Video = _interopRequireDefault(require("../models/Video"));
 
 var _User = _interopRequireDefault(require("../models/User"));
+
+var _Comment = _interopRequireDefault(require("../models/Comment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -57,13 +59,14 @@ var watch = function watch(req, res) {
         case 0:
           id = req.params.id;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(_Video["default"].findById(id).populate("owner"));
+          return regeneratorRuntime.awrap(_Video["default"].findById(id).populate("owner").populate("comments"));
 
         case 3:
           video = _context2.sent;
+          console.log(video);
 
           if (video) {
-            _context2.next = 6;
+            _context2.next = 7;
             break;
           }
 
@@ -71,13 +74,13 @@ var watch = function watch(req, res) {
             pageTitle: "Vidoe not found."
           }));
 
-        case 6:
+        case 7:
           return _context2.abrupt("return", res.render("watch", {
             pageTitle: video.title,
             video: video
           }));
 
-        case 7:
+        case 8:
         case "end":
           return _context2.stop();
       }
@@ -384,3 +387,45 @@ var registerView = function registerView(req, res) {
 };
 
 exports.registerView = registerView;
+
+var createComment = function createComment(req, res) {
+  var user, text, id, video, comment;
+  return regeneratorRuntime.async(function createComment$(_context9) {
+    while (1) {
+      switch (_context9.prev = _context9.next) {
+        case 0:
+          user = req.session.user, text = req.body.text, id = req.params.id;
+          _context9.next = 3;
+          return regeneratorRuntime.awrap(_Video["default"].findById(id));
+
+        case 3:
+          video = _context9.sent;
+
+          if (!video) {
+            res.sendStatus(404);
+          }
+
+          _context9.next = 7;
+          return regeneratorRuntime.awrap(_Comment["default"].create({
+            text: text,
+            owner: user._id,
+            video: id
+          }));
+
+        case 7:
+          comment = _context9.sent;
+          video.comments.push(comment._id);
+          video.save();
+          return _context9.abrupt("return", res.status(201).json({
+            newCommentId: comment._id
+          }));
+
+        case 11:
+        case "end":
+          return _context9.stop();
+      }
+    }
+  });
+};
+
+exports.createComment = createComment;

@@ -513,8 +513,8 @@ var postEdit = function postEdit(req, res) {
 exports.postEdit = postEdit;
 
 var logout = function logout(req, res) {
-  req.session.destroy();
   req.flash("info", "Bye Bye");
+  req.session.destroy();
   return res.redirect("/");
 };
 

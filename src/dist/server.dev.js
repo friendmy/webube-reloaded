@@ -35,6 +35,7 @@ app.use(logger);
 app.use(_express["default"].urlencoded({
   extended: true
 }));
+app.use(_express["default"].json());
 app.use((0, _expressSession["default"])({
   secret: process.env.COOKIE_SECRET,
   // 해당 문자로 세션을 암호화하여 저장

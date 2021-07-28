@@ -51,6 +51,10 @@ var videoSchema = new _mongoose["default"].Schema({
       required: true
     }
   },
+  comments: [{
+    type: _mongoose["default"].Schema.Types.ObjectId,
+    ref: "Comment"
+  }],
   owner: {
     type: _mongoose["default"].Schema.Types.ObjectId,
     required: true,

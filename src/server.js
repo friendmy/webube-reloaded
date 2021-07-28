@@ -16,6 +16,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
     session({
         secret: process.env.COOKIE_SECRET, // 해당 문자로 세션을 암호화하여 저장
