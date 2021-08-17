@@ -188,7 +188,7 @@ var startKakaoLogin = function startKakaoLogin(req, res) {
   var baseUrl = "https://kauth.kakao.com/oauth/authorize";
   var config = {
     client_id: process.env.KAKAO_CLIENT,
-    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    redirect_uri: process.env.redirectURL ? "https://".concat(process.env.redirectURL, "/users/kakao/finish") : "http://localhost:4000/users/kakao/finish",
     response_type: "code"
   };
   var params = new URLSearchParams(config).toString();
@@ -208,7 +208,7 @@ var finishKakaoLogin = function finishKakaoLogin(req, res) {
           config = {
             grant_type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT,
-            redirect_uri: "/users/kakao/finish",
+            redirect_uri: process.env.redirectURL ? "https://".concat(process.env.redirectURL, "/users/kakao/finish") : "http://localhost:4000/users/kakao/finish",
             code: req.query.code,
             client_secret: process.env.KAKAO_SECRET
           };
