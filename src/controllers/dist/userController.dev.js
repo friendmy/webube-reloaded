@@ -208,7 +208,7 @@ var finishKakaoLogin = function finishKakaoLogin(req, res) {
           config = {
             grant_type: "authorization_code",
             client_id: process.env.KAKAO_CLIENT,
-            redirect_uri: "http://localhost:4000/users/kakao/finish",
+            redirect_uri: "/users/kakao/finish",
             code: req.query.code,
             client_secret: process.env.KAKAO_SECRET
           };
