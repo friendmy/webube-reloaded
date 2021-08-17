@@ -22,4 +22,4 @@ var handleListening = function handleListening() {
   return console.log("\u2714 Server listening on port http://localhost:".concat(PORT));
 };
 
-_server["default"].listen(4000, handleListening);
+_server["default"].listen(PORT, handleListening);
