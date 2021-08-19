@@ -87,8 +87,8 @@ export const postUpload = async (req, res) => {
         const newVideo = await Video.create({
             title,
             description,
-            fileUrl: video[0].path.replace(/\\/g, "/"),
-            thumbUrl: thumb[0].path.replace(/\\/g, "/"),
+            fileUrl: video[0].location.replace(/\\/g, "/"),
+            thumbUrl: thumb[0].location.replace(/\\/g, "/"),
             owner,
             hashtags: Video.formatHashtags(hashtags),
         });

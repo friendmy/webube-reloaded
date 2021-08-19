@@ -486,9 +486,10 @@ var postEdit = function postEdit(req, res) {
           }));
 
         case 11:
-          _context5.next = 13;
+          console.log(file);
+          _context5.next = 14;
           return regeneratorRuntime.awrap(_User["default"].findByIdAndUpdate(_id, {
-            avatarUrl: file ? file.path : avatarUrl,
+            avatarUrl: file ? file.location : avatarUrl,
             name: name,
             email: email,
             username: username,
@@ -497,12 +498,12 @@ var postEdit = function postEdit(req, res) {
             "new": true
           }));
 
-        case 13:
+        case 14:
           updatedUser = _context5.sent;
           req.session.user = updatedUser;
           return _context5.abrupt("return", res.redirect("/users/edit"));
 
-        case 16:
+        case 17:
         case "end":
           return _context5.stop();
       }

@@ -223,8 +223,8 @@ var postUpload = function postUpload(req, res) {
           return regeneratorRuntime.awrap(_Video["default"].create({
             title: title,
             description: description,
-            fileUrl: video[0].path.replace(/\\/g, "/"),
-            thumbUrl: thumb[0].path.replace(/\\/g, "/"),
+            fileUrl: video[0].location.replace(/\\/g, "/"),
+            thumbUrl: thumb[0].location.replace(/\\/g, "/"),
             owner: owner,
             hashtags: _Video["default"].formatHashtags(hashtags)
           }));
