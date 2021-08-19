@@ -449,7 +449,7 @@ var getEdit = function getEdit(req, res) {
 exports.getEdit = getEdit;
 
 var postEdit = function postEdit(req, res) {
-  var _req$session$user, _id, beforeUsername, beforeEmail, avatarUrl, _req$body3, name, email, username, location, file, pageTitle, searchParam, exists, updatedUser;
+  var _req$session$user, _id, beforeUsername, beforeEmail, avatarUrl, _req$body3, name, email, username, location, file, pageTitle, searchParam, exists, isHeroku, updatedUser;
 
   return regeneratorRuntime.async(function postEdit$(_context5) {
     while (1) {
@@ -486,10 +486,10 @@ var postEdit = function postEdit(req, res) {
           }));
 
         case 11:
-          console.log(file);
+          isHeroku = process.env.NODE_ENV === "production";
           _context5.next = 14;
           return regeneratorRuntime.awrap(_User["default"].findByIdAndUpdate(_id, {
-            avatarUrl: file ? file.location : avatarUrl,
+            avatarUrl: file ? isHeroku ? file.location : "/" + file.path : avatarUrl,
             name: name,
             email: email,
             username: username,
