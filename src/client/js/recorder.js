@@ -49,7 +49,8 @@ const handleDownload = async () => {
 
     downloadFile(mp4Url, "MyRecording.mp4");
     downloadFile(thumbUrl, "MyThumbnail.jpg");
-
+    console.log(mp4Url);
+    console.log(thumbUrl);
     ffmpeg.FS("unlink", files.input);
     ffmpeg.FS("unlink", files.output);
     ffmpeg.FS("unlink", files.thumb);

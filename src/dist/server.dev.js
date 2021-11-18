@@ -51,6 +51,11 @@ app.use((0, _expressFlash["default"])());
 app.use(_middlewares.localsMiddleware);
 app.use("/uploads", _express["default"]["static"]("uploads"));
 app.use("/static", _express["default"]["static"]("assets"), _express["default"]["static"]("node_modules/@ffmpeg/core/dist"));
+app.use(function (req, res, next) {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/", _rootRouter["default"]);
 app.use("/users", _userRouter["default"]);
 app.use("/videos", _videoRouter["default"]);

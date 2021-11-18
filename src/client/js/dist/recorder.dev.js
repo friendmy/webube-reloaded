@@ -68,6 +68,8 @@ var handleDownload = function handleDownload() {
           thumbUrl = URL.createObjectURL(thumbBlob);
           downloadFile(mp4Url, "MyRecording.mp4");
           downloadFile(thumbUrl, "MyThumbnail.jpg");
+          console.log(mp4Url);
+          console.log(thumbUrl);
           ffmpeg.FS("unlink", files.input);
           ffmpeg.FS("unlink", files.output);
           ffmpeg.FS("unlink", files.thumb);
@@ -78,7 +80,7 @@ var handleDownload = function handleDownload() {
           actionBtn.innerText = "Record Again";
           actionBtn.addEventListener("click", handleStart);
 
-        case 33:
+        case 35:
         case "end":
           return _context.stop();
       }
